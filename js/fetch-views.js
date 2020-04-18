@@ -7,6 +7,9 @@ async function getStatsForDay(day) {
 
   console.log(str);
   const resp = await axios.get(BASE_URL + str);
+  if (!resp.data) {
+    alert("Wikipedia request was blocked. You may need to disable your adblocker.");
+  }
   const stats = resp.data.items[0].articles;
   const map = {};
   stats.forEach(stat => {
