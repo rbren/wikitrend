@@ -3,7 +3,7 @@ const ITEMS_PER_DATE = 5;
 const MAX_DAYS_FOR_UNIQUE = 2;
 
 function formatPct(num) {
-  return Math.floor(num * 100) + "%";
+  return (num > 0 ? "+" : "") + Math.floor(num * 100) + "%";
 }
 
 function getExternalLink(article, isGoogle) {
@@ -20,7 +20,7 @@ function getArticleLink(id) {
   const plain = id.replace(/_/g, " ");
   const query = id.replace(/_/g, "+");
   return `
-  ${plain} ${getExternalLink(id)} ${getExternalLink(id, true)}
+  ${plain}<br>${getExternalLink(id)} ${getExternalLink(id, true)}
   `.trim();
 }
 
@@ -30,13 +30,13 @@ function formatDate(d) {
 
 function formatDiff(diff) {
   return `
-<li>${getArticleLink(diff.article)}: ${formatPct(diff.diff)}</li>
+<li>${getArticleLink(diff.article)} <span class="view-count">${diff.views} views</span> ${formatPct(diff.diff)}</li>
   `
 }
 
 function formatDiscovered(disc) {
   return `
-<li>${getArticleLink(disc.article)}: ${disc.views}</li>
+<li>${getArticleLink(disc.article)} <span class="view-count">${disc.views} views</span></li>
   `
 }
 
@@ -80,7 +80,7 @@ async function main() {
     for (let article in views[date]) {
       const stats = byArticle[article];
       const diff = (views[date][article] - stats.average) / stats.average;
-      diffs.push({diff, article, stats});
+      diffs.push({diff, article, stats, views: views[date][article]});
       if (stats.occurrences <= MAX_DAYS_FOR_UNIQUE) {
         discovered.push({article, stats, views: views[date][article]});
       }

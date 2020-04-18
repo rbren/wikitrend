@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #555;
   height: 100%;
   font-family: 'Roboto Mono', monospace;
 }
@@ -17,6 +16,11 @@ html, body {
 
 h5 {
   margin: 0;
+}
+
+.view-count {
+  display: inline-block;
+  min-width: 130px;
 }
 
 
