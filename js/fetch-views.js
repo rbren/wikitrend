@@ -4,8 +4,9 @@ async function getStatsForDay(day) {
   const str = day.format("YYYY/MM/DD");
   const cached = localStorage.getItem(str);
   if (cached) return JSON.parse(cached);
+  const msg = " for " + str;
+  $("#LoadingDate").text(msg);
 
-  console.log(str);
   const resp = await axios.get(BASE_URL + str);
   if (!resp.data) {
     alert("Wikipedia request was blocked. You may need to disable your adblocker.");
@@ -19,8 +20,7 @@ async function getStatsForDay(day) {
 }
 
 const yesterday = moment();
-const start = yesterday.clone().subtract(1, 'year');
-console.log(start, yesterday);
+const start = yesterday.clone().subtract(1, 'month');
 
 let current = start.clone();
 window.allStats = {};
