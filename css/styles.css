@@ -5,6 +5,10 @@ html, body {
   font-family: 'Roboto Mono', monospace;
 }
 
+h1 .gh-link {
+  font-size: 50%;
+}
+
 .datum {
   padding-top: 15px;
   padding-bottom: 15px;
